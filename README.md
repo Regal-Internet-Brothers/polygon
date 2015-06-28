@@ -1,2 +1,2 @@
 # polygon
-A basic polygon module for the Monkey programming language.
+A basic *polygon container* module for the [Monkey programming language](https://github.com/blitz-research/monkey), meant to simplify handling raw 2D polygon-data.
