@@ -80,6 +80,22 @@ Class Polygon Implements Polygon_Approximation, Rectangle_Approximation
 		Return
 	End
 	
+	Function RotateAroundPoint:Void(XY:Float[], CX:Float, CY:Float, Angle:Float=0.0, Offset:Int=0)
+		Local s:= Sin(Angle)
+		Local c:= Cos(Angle)
+		
+		XY[Offset] -= CX
+		XY[Offset+1] -= CY
+		
+		Local XNew:Float = (XY[Offset] * c - XY[Offset+1] * s)
+		Local YNew:Float = (XY[Offset] * s + XY[Offset+1] * c)
+		
+		XY[Offset] = XNew + CX
+		XY[Offset+1] = YNew + CY
+		
+		Return
+	End
+	
 	Function QuadContained:Bool(TL_X:Float, TL_Y:Float, BR_X:Float, BR_Y:Float, Target_TL_X:Float, Target_TL_Y:Float, Target_BR_X:Float, Target_BR_Y:Float)
 		Return ((TL_X >= Target_TL_X And BR_X <= Target_BR_X) And (TL_Y >= Target_TL_Y And BR_Y <= Target_BR_Y))
 	End
@@ -166,12 +182,12 @@ Class Polygon Implements Polygon_Approximation, Rectangle_Approximation
 	
 	' Methods:
 	Method SetPosition:Void(X:Float, Y:Float)
-		Local XD:Float = (X-CenterX)
-		Local YD:Float = (Y-CenterY)
+		Local CX:= Self.CenterX
+		Local CY:= Self.CenterY
 		
 		For Local I:= 0 Until Points.Length Step 2
-			Points[I] += XD
-			Points[I+1] += YD
+			Points[I] = X + (CX-Points[I])
+			Points[I+1] = Y + (CY-Points[I+1])
 		Next
 		
 		Return
@@ -198,7 +214,7 @@ Class Polygon Implements Polygon_Approximation, Rectangle_Approximation
 			End
 	#End
 	
-	' Properties:
+	' Properties (Public):
 	
 	' These are basically modified versions of 'Project':
 	' (They do not use MinimumX and MinimumY for the sake of speed)
@@ -343,6 +359,23 @@ Class Polygon Implements Polygon_Approximation, Rectangle_Approximation
 		' Return the center point of the polygon.
 		Return (Y / (Points_Length / 2))
 	End
+	
+	' Properties (Protected):
+	Protected
+	
+	Method X:Void(Value:Float) Property
+		' Reserved for future use.
+		
+		Return
+	End
+	
+	Method Y:Void(Value:Float) Property
+		' Reserved for future use.
+		
+		Return
+	End
+	
+	Public
 	
 	' Fields:
 	Field Points:Float[]
