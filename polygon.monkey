@@ -8,7 +8,14 @@ Public
 	'#POLYGON_MOJO2 = True
 #End
 
-' Imports (External):
+#POLYGON_IO_ENABLED = True
+
+' Imports (Public):
+
+' Internal:
+Import rect
+
+' External:
 
 ' Unofficial:
 Import vector
@@ -26,8 +33,15 @@ Import vector
 
 'Import brl.pool
 
-' Imports (Internal):
-Import rect
+' Imports (Private):
+Private
+
+' External:
+#If POLYGON_IO_ENABLED
+	Import brl.stream
+#End
+
+Public
 
 ' Interfaces:
 Interface Polygon_Approximation
@@ -154,7 +168,7 @@ Class Polygon Implements Polygon_Approximation, Rectangle_Approximation
 	' This will resize the internal point-array.
 	Method CreatePoints:Bool(PointArraySize:Int)		
 		If (PointArraySize > 0) Then
-			If (Points.Length() = 0) Then
+			If (Points.Length = 0) Then
 				Points = New Float[PointArraySize]
 			Else
 				Points = Points.Resize(PointArraySize)
@@ -212,6 +226,35 @@ Class Polygon Implements Polygon_Approximation, Rectangle_Approximation
 				
 				Return
 			End
+	#End
+	
+	' I/O related:
+	#If POLYGON_IO_ENABLED
+		Method Read:Void(S:Stream)
+			' Local variable(s):
+			Local ArraySize:= (S.ReadShort()*2)
+			
+			Init(ArraySize)
+			
+			For Local I:= 0 Until ArraySize
+				Points[I] = S.ReadFloat()
+			Next
+			
+			Return
+		End
+		
+		Method Write:Void(S:Stream)
+			' Local variable(s):
+			Local Points_Length:= Points.Length
+			
+			S.WriteShort(S, Points_Length/2)
+			
+			For Local I:= 0 Until Points_Length
+				S.WriteFloat(Points[I])
+			Next
+			
+			Return
+		End
 	#End
 	
 	' Properties (Public):
