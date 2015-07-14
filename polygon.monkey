@@ -154,7 +154,7 @@ Class Polygon Implements Polygon_Approximation, Rectangle_Approximation
 	End
 	
 	' Constructor(s):
-	Method New(PointArraySize:Int)
+	Method New(PointArraySize:Int=0)
 		Init(PointArraySize)
 	End
 	
