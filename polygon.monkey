@@ -247,7 +247,7 @@ Class Polygon Implements Polygon_Approximation, Rectangle_Approximation
 			' Local variable(s):
 			Local Points_Length:= Points.Length
 			
-			S.WriteShort(S, Points_Length/2)
+			S.WriteShort(Points_Length/2)
 			
 			For Local I:= 0 Until Points_Length
 				S.WriteFloat(Points[I])
