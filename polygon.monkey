@@ -18,7 +18,7 @@ Import rect
 ' External:
 
 ' Unofficial:
-Import vector
+Import regal.vector
 
 ' Official:
 

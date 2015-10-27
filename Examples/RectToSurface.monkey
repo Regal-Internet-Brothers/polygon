@@ -3,9 +3,9 @@ Strict
 Public
 
 ' Imports:
-Import polygon.rect
-Import matrix2d
-Import matrix2d.geometry
+Import regal.polygon.rect
+Import regal.matrix2d
+Import regal.matrix2d.geometry
 
 Import mojo
 

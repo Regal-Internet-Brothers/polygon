@@ -7,8 +7,9 @@ Strict
 Public
 
 ' Imports:
+Import regal.polygon
+
 Import mojo
-Import polygon
 
 ' Functions:
 Function Main:Int()
