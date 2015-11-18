@@ -34,15 +34,23 @@ Class Rect Extends Polygon ' Final
 		' Call the super-class's implementation.
 		Super.New(PointArraySize)
 		
-		' Call the initialization command.
+		' Call the main initialization routine.
 		InitRect(TopLeft, BottomLeft, TopRight, BottomRight, False)
+	End
+	
+	Method New(TopLeftX:Float, TopLeftY:Float, BottomLeftX:Float, BottomLeftY:Float, BottomRightX:Float, BottomRightY:Float, TopRightX:Float, TopRightY:Float)
+		' Call the super-class's implementation.
+		Super.New(PointArraySize)
+		
+		' Call the main initialization routine.
+		InitRect(TopLeftX, TopLeftY, BottomLeftX, BottomLeftY, BottomRightX, BottomRightY, TopRightX, TopRightY, False)
 	End
 	
 	Method New(X:Float, Y:Float, Width:Float, Height:Float)
 		' Call the super-class's implementation.
 		Super.New(PointArraySize)
 		
-		' Call the initialization command.
+		' Call the main initialization routine.
 		InitRect(X, Y, Width, Height, False)
 	End
 	
@@ -60,6 +68,25 @@ Class Rect Extends Polygon ' Final
 		
 		BottomRightX = BottomRight.X
 		BottomRightY = BottomRight.Y
+		
+		' Return this object for the sake of pooling.
+		Return Self
+	End
+	
+	Method InitRect:Rect(TopLeftX:Float, TopLeftY:Float, BottomLeftX:Float, BottomLeftY:Float, BottomRightX:Float, BottomRightY:Float, TopRightX:Float, TopRightY:Float, Callup:Bool=True)
+		InitRect(Callup)
+		
+		Self.TopLeftX = TopLeftX
+		Self.TopLeftY = TopLeftY
+		
+		Self.TopRightX = TopRightX
+		Self.TopRightY = TopRightY
+		
+		Self.BottomLeftX = BottomLeftX
+		Self.BottomLeftY = BottomLeftY
+		
+		Self.BottomRightX = BottomRightX
+		Self.BottomRightY = BottomRightY
 		
 		' Return this object for the sake of pooling.
 		Return Self
